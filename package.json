@@ -1,0 +1,12 @@
+{
+  "name": "tronsmartcontract.backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/TronSCS/tronsmartcontract.backend.git",
+  "author": "khanhnd69 <vietnamese.isme@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "git-commit-push-via-github-api": "^1.0.1"
+  }
+}
