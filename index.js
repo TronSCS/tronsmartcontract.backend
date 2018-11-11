@@ -3,7 +3,7 @@ const app = express()
 const port = 8080
 const { gitCommitPush } = require("git-commit-push-via-github-api");
 app.use(express.json());
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Server running'))
 app.post('/shareit', (req, res) => {
     try {
         console.log(req.body.source);
