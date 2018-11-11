@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 80
+const port=process.env.PORT || 3000
 const { gitCommitPush } = require("git-commit-push-via-github-api");
 app.use(express.json());
 app.get('/', (req, res) => res.send('Server running'))
