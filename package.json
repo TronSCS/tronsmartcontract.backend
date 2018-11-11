@@ -2,6 +2,9 @@
   "name": "tronsmartcontract.backend",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "repository": "https://github.com/TronSCS/tronsmartcontract.backend.git",
   "author": "khanhnd69 <vietnamese.isme@gmail.com>",
   "license": "MIT",
