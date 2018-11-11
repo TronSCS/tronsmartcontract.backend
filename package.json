@@ -9,6 +9,7 @@
   "author": "khanhnd69 <vietnamese.isme@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "git-commit-push-via-github-api": "^1.0.1"
   }
