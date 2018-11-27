@@ -11,6 +11,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "git-commit-push-via-github-api": "^1.0.1"
+    "git-commit-push-via-github-api": "^1.0.1",
+    "solc": "0.4.25",
+    "tronweb": "^2.1.4"
   }
 }
