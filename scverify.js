@@ -64,7 +64,7 @@ function compareByteCode(a,b) {
       lastDiffIndex=i;
     }
   }
-  return lastDiffIndex-firstDiffIndex==63
+  return lastDiffIndex-firstDiffIndex<=63
   //*
   //KhanhND69 27/10/2018
   //Because Solc in different enviroment have difference metadata
