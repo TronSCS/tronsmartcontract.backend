@@ -12,7 +12,7 @@ const eventServerTestNet = 'https://api.shasta.trongrid.io';
 const tronWebMainNet = new TronWeb(fullNode, solidityNode, eventServer, "143100215d5e872541219dd03b9580c853e81f73b8bd6a6c21d20fb9160ae0cd");
 const tronWebTestNet = new TronWeb(fullNodeTestNet, solidityNodeTestNet, eventServerTestNet, "143100215d5e872541219dd03b9580c853e81f73b8bd6a6c21d20fb9160ae0cd");
 
-exports.verify = async function(mainnet, address, sourceCode, contractName,params, solVersion, opmize) {
+exports.verify = async function(mainnet, address, sourceCode, contractName,params, solVersion, opmize=true,optimizerRuns=0) {
   try {
     //KhanhND Get bytecode of contract at address
     let tronWeb = {}
@@ -23,7 +23,7 @@ exports.verify = async function(mainnet, address, sourceCode, contractName,param
 
     //KhanhND Compile
     let compiler = await getCompiler(solVersion);
-    const compiled = compiler({sources:{'hi':sourceCode},settings:{optimizer: {enabled: true, runs:0}}},1);
+    const compiled = compiler({sources:{'hi':sourceCode},settings:{optimizer: {enabled: true, runs:optimizerRuns}}},opmize?1:0);
     if (!compiled.errors) {
         const unsigned = await tronWeb.transactionBuilder.createSmartContract({
           abi: compiled.contracts["hi:"+contractName].interface,
@@ -32,13 +32,14 @@ exports.verify = async function(mainnet, address, sourceCode, contractName,param
         });
         let bytecode = unsigned.raw_data.contract[0].parameter.value.new_contract.bytecode
         if (compareByteCode(bytecode,deployedByteCode)) return { result: true, contractName: contractName }
+        return { result: false, error: "Difference bytecode" }
     }
     else {
       return { result: false, error: compiled.errors }
     }
   }
   catch (e) {
-    return { result: false, error: e }
+    return { result: false, error: e.message?e.message:e }
 
   }
 }

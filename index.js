@@ -43,7 +43,7 @@ app.post('/shareit', (req, res) => {
 app.post('/verify', async (req, res) => {
     try {
         let contractAddress = req.body.address;
-        let checkResult = await verify( req.body.mainNet,contractAddress, req.body.source,req.body.contractName, req.body.parameters, req.body.sol, req.body.opmize);
+        let checkResult = await verify( req.body.mainNet,contractAddress, req.body.source,req.body.contractName, req.body.parameters, req.body.sol, req.body.opmize, req.body.optimizerRuns);
         if (checkResult.result) {
             if (!process.env.GITHUB_API_TOKEN) {
                 throw new Error("GITHUB_API_TOKEN=xxx node index.js");
@@ -65,7 +65,7 @@ app.post('/verify', async (req, res) => {
                 })
                 .catch(err => {
                     console.error(err);
-                    res.send(JSON.stringify({ result: "FAILED", error: err }))
+                    res.send(JSON.stringify({ result: "ERROR", error: err }))
                 });
         }
         else
@@ -74,7 +74,7 @@ app.post('/verify', async (req, res) => {
         }
     }
     catch (e) {
-        res.send(JSON.stringify({ result: "ERROR", error:e }))
+        res.send(JSON.stringify({ result: "ERROR", error:e.message }))
     }
 })
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Listening on port ${port}!`))
