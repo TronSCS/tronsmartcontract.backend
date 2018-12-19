@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const port = 8081
+const port = process.env.PORT || 80
 const { gitCommitPush } = require("git-commit-push-via-github-api");
 const { verify } = require('./scverify');
 app.use(express.json());
