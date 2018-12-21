@@ -44,6 +44,8 @@ app.post('/verify', async (req, res) => {
         let contractAddress = req.body.address;
         let checkResult = await verify( req.body.mainNet,contractAddress, req.body.source,req.body.contractName, req.body.parameters, req.body.sol, req.body.opmize, req.body.optimizerRuns);
         if (checkResult.result) {
+            let sourceFilePath=(req.body.mainNet?"mainnet":"testnet")+"\/"+contractAddress + "\/source.sol";
+            let sourceInfoPath=(req.body.mainNet?"mainnet":"testnet")+"\/"+contractAddress + "\/info.json";
             if (!process.env.GITHUB_API_TOKEN) {
                 throw new Error("GITHUB_API_TOKEN=xxx node index.js");
             }
@@ -52,8 +54,8 @@ app.post('/verify', async (req, res) => {
                     repo: "tronsmartcontract.verify",
                     // commit files
                     files: [
-                        { path: req.body.mainNet?"mainnet":"testnet"+"\/"+contractAddress + "\/source.sol", content: req.body.source },
-                        { path: req.body.mainNet?"mainnet":"testnet"+"\/"+contractAddress + "\/info.json", content: JSON.stringify(req.body.info) },
+                        { path: sourceFilePath, content: req.body.source },
+                        { path: sourceInfoPath, content: JSON.stringify(req.body.info) },
                     ],
                     fullyQualifiedRef: "heads/master",
                     forceUpdate: false, // optional default = false
