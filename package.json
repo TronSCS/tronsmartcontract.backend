@@ -9,10 +9,13 @@
   "author": "khanhnd69 <vietnamese.isme@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "git-commit-push-via-github-api": "^1.0.1",
-    "solc": "0.4.25",
+    "https": "^1.0.0",
+    "require-from-string": "^2.0.2",
+    "solc": "^0.5.4",
     "tronweb": "^2.1.4"
   }
 }

@@ -42,7 +42,7 @@ app.post('/shareit', (req, res) => {
 app.post('/verify', async (req, res) => {
     try {
         let contractAddress = req.body.address;
-        let checkResult = await verify( req.body.mainNet,contractAddress, req.body.source,req.body.contractName, req.body.parameters, req.body.sol, req.body.opmize, req.body.optimizerRuns);
+        let checkResult = await verify( req.body.mainNet,contractAddress, req.body.source,req.body.contractName, req.body.sol, req.body.opmize, req.body.optimizerRuns);
         if (checkResult.result) {
             let sourceFilePath=(req.body.mainNet?"mainnet":"testnet")+"\/"+contractAddress + "\/source.sol";
             let sourceInfoPath=(req.body.mainNet?"mainnet":"testnet")+"\/"+contractAddress + "\/info.json";
