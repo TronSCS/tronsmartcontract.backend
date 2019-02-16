@@ -64,17 +64,6 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
   }
 }
 
-function getCompiler(solVersion) {
-  return new Promise((resolve, reject) => {
-    solc.loadRemoteVersion(solVersion, async (err, solcV) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(solcV.compile)
-    })
-  })
-}
-
 function compareByteCode(a, b) {
   if (a.length != b.length) return false;
   let firstDiffIndex = 0;
