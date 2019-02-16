@@ -474,9 +474,10 @@ get-stream@^3.0.0:
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
   integrity sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ=
 
-"git-commit-push-via-github-api@https://github.com/TronSCS/git-commit-push-via-github-api":
+git-commit-push-via-github-api@^1.0.2:
   version "1.0.2"
-  resolved "https://github.com/TronSCS/git-commit-push-via-github-api#28c16a0ba97ec75928070f1014ad93e024e65fac"
+  resolved "https://registry.yarnpkg.com/git-commit-push-via-github-api/-/git-commit-push-via-github-api-1.0.2.tgz#e70581380cd18f0722bd3e28e40ee6661cb686b5"
+  integrity sha512-o9M6wFWs3AGjnPVLH9Qs9a8opDrsA8hJW+PoJvFYxq+BMeviiBP1DbUS874BZb+ITAJUzO4JYdBI4TkEDbSahw==
   dependencies:
     "@octokit/rest" "^16.3.0"
     "@types/debug" "^0.0.30"

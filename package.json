@@ -12,7 +12,7 @@
     "axios": "^0.18.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "git-commit-push-via-github-api": "https://github.com/TronSCS/git-commit-push-via-github-api",
+    "git-commit-push-via-github-api": "^1.0.2",
     "https": "^1.0.0",
     "require-from-string": "^2.0.2",
     "solc": "^0.5.4",
