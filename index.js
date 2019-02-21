@@ -9,7 +9,7 @@ app.use(cors())
 
 app.get('/', (req, res) => res.send('Backend of <a href="https://tronsmartcontract.space">https://tronsmartcontract.space</a>'))
 app.options('*', cors())
-app.post('/shareit', (req, res) => {
+app.post('/shareit', async (req, res) => {
     try {
         console.log(req.body.source);
         let fileName = Date.now() + "";
