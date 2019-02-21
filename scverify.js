@@ -21,7 +21,10 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
 
     if (!createTxHash) {
       //KhanhND: Try to get create txHash
-      let contractInfo = await axios.get("https://apilist.tronscan.org/api/contract?contract=" + address);
+      let tronDataApi = mainnet ? "https://apilist.tronscan.org/api/contract?contract=" : "https://api.shasta.tronscan.org/api/contract?contract="
+      let contractInfo = await axios.get(tronDataApi + address);
+      if (contractInfo.data.data[0].creator == "")
+        return { result: false, error: "Contract don't exits" }
       createTxHash = contractInfo.data.data[0].creator.txHash;
     }
     let tx = await tronWeb.trx.getTransaction(createTxHash);
@@ -55,7 +58,7 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
       }
       return { result: false, error: "Difference bytecode" }
     } else {
-      this.$alert("Error", "Can't compile");
+      return { result: false, error: "Can't re-compile" }
     }
   }
   catch (e) {
@@ -75,7 +78,7 @@ function compareByteCode(a, b) {
     }
   }
   console.log(firstDiffIndex + " to " + lastDiffIndex);
-  return lastDiffIndex - firstDiffIndex <64
+  return lastDiffIndex - firstDiffIndex < 64
   //*
   //KhanhND69 27/10/2018
   //Because Solc in different enviroment have difference metadata
