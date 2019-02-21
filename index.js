@@ -9,27 +9,6 @@ app.use(cors())
 
 app.get('/', (req, res) => res.send('Backend of <a href="https://tronsmartcontract.space">https://tronsmartcontract.space</a>'))
 app.options('*', cors())
-app.get('/test', async (req, res) => {
-    try {
-        let data = await gitCommitPush({
-            owner: "TronSCS",
-            repo: "tronsmartcontract.shareit",
-            // commit files
-            files: [
-                { path: "hi/testaa.sol", content: "test" },
-            ],
-            fullyQualifiedRef: "heads/master",
-            forceUpdate: false, // optional default = false
-            commitMessage: "Share code",
-            // token: "token 17609bcc17b613df08e1396d90288adddb99b647",
-        });
-        res.send(data)
-    }
-    catch (err) {
-        res.send(err)
-        // oh no! something went wrong
-    }
-})
 app.post('/shareit', (req, res) => {
     try {
         console.log(req.body.source);
