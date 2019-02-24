@@ -4,6 +4,7 @@ const cors = require('cors')
 const port = process.env.PORT || 80
 const { gitCommitPush } = require("./gitCommitPush");
 const { verify } = require('./scverify');
+
 app.use(express.json());
 app.use(cors())
 
@@ -11,7 +12,6 @@ app.get('/', (req, res) => res.send('Backend of <a href="https://tronsmartcontra
 app.options('*', cors())
 app.post('/shareit', async (req, res) => {
     try {
-        console.log(req.body.source);
         let fileName = Date.now() + "";
         await gitCommitPush({
             owner: "TronSCS",
@@ -34,8 +34,18 @@ app.post('/shareit', async (req, res) => {
 app.post('/verify', async (req, res) => {
     try {
         let contractAddress = req.body.address;
-        let checkResult = await verify(req.body.mainNet, contractAddress, req.body.source, req.body.contractName, req.body.sol, req.body.opmize, req.body.optimizerRuns);
+        let checkResult = await verify(req.body.mainNet, contractAddress, req.body.source, req.body.contractName, req.body.sol, req.body.opmize, req.body.optimizerRuns, req.body.signature);
         if (checkResult.result) {
+            let info = {
+                compiler: {
+                    sol: req.body.sol,
+                    opmize: rreq.body.opmize,
+                    optimizerRuns: req.body.optimizerRuns
+                },
+                logo: req.body.info.logo,
+                dapp: req.body.info.dapp,
+                timeVerify: Date.now()
+            }
             let sourceFilePath = (req.body.mainNet ? "mainnet" : "testnet") + "/" + contractAddress + "/source.sol";
             let sourceInfoPath = (req.body.mainNet ? "mainnet" : "testnet") + "/" + contractAddress + "/info.json";
             if (!process.env.GITHUB_API_TOKEN) {
@@ -47,7 +57,7 @@ app.post('/verify', async (req, res) => {
                 // commit files
                 files: [
                     { path: sourceFilePath, content: req.body.source },
-                    { path: sourceInfoPath, content: JSON.stringify(req.body.info) },
+                    { path: sourceInfoPath, content: JSON.stringify(info) },
                 ],
                 fullyQualifiedRef: "heads/master",
                 forceUpdate: false, // optional default = false

@@ -12,8 +12,10 @@ const eventServerTestNet = 'https://api.shasta.trongrid.io';
 const tronWebMainNet = new TronWeb(fullNode, solidityNode, eventServer, "143100215d5e872541219dd03b9580c853e81f73b8bd6a6c21d20fb9160ae0cd");
 const tronWebTestNet = new TronWeb(fullNodeTestNet, solidityNodeTestNet, eventServerTestNet, "143100215d5e872541219dd03b9580c853e81f73b8bd6a6c21d20fb9160ae0cd");
 
-exports.verify = async function (mainnet, address, sourceCode, contractName, solVersion, opmize = true, optimizerRuns = 0, createTxHash = false) {
+exports.verify = async function (mainnet, address, sourceCode, contractName, solVersion, opmize = true, optimizerRuns = 0, signature = false, createTxHash = false) {
   try {
+    if(!signature)
+      return { result: false, error: "Creator must sign to verify" }
     //KhanhND Get bytecode of contract at address
     let tronWeb = {}
     if (mainnet) tronWeb = tronWebMainNet
@@ -25,6 +27,13 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
       let contractInfo = await axios.get(tronDataApi + address);
       if (contractInfo.data.data[0].creator == "")
         return { result: false, error: "Contract don't exits" }
+      let creatorAddress= contractInfo.data.data[0].creator.address;
+      try{
+        await tronWeb.trx.verifyMessage(tronWeb.sha3("I'm creator"),signature,creatorAddress)
+      }
+      catch(e){
+        return { result: false, error: "Just creator can verify, make sure you chose right account to sign" }
+      }
       createTxHash = contractInfo.data.data[0].creator.txHash;
     }
     let tx = await tronWeb.trx.getTransaction(createTxHash);
