@@ -8,7 +8,8 @@ const { verify } = require('./scverify');
 app.use(express.json());
 app.use(cors())
 
-app.get('/', (req, res) => res.send('Backend of <a href="https://tronsmartcontract.space">https://tronsmartcontract.space</a>'))
+app.get('/', (req, res) => res.send(`<h1>Backend of <a href="https://tronsmartcontract.space">https://tronsmartcontract.space</a>.</h1>
+<p>25/02/19: Check signature for prevent none-author verify<p>`))
 app.options('*', cors())
 app.post('/shareit', async (req, res) => {
     try {
