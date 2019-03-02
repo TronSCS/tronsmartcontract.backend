@@ -26,7 +26,7 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
       let tronDataApi = mainnet ? "https://apilist.tronscan.org/api/contract?contract=" : "https://api.shasta.tronscan.org/api/contract?contract="
       address = address.trim();
       let contractInfo = await axios.get(tronDataApi + address);
-      console.log(contractInfo);
+      console.log(contractInfo.data);
       if(contractInfo.data.data[0]==undefined)
         return {result:false, error: "Can't get contract data"}
       if (contractInfo.data.data[0].creator == "")
