@@ -24,9 +24,10 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
     if (!createTxHash) {
       //KhanhND: Try to get create txHash
       let tronDataApi = mainnet ? "https://apilist.tronscan.org/api/contract?contract=" : "https://api.shasta.tronscan.org/api/contract?contract="
+      address = address.trim();
       let contractInfo = await axios.get(tronDataApi + address);
       console.log(contractInfo);
-      if(contractInfo.data.data==undefined)
+      if(contractInfo.data.data[0]==undefined)
         return {result:false, error: "Can't get contract data"}
       if (contractInfo.data.data[0].creator == "")
         return { result: false, error: "Contract don't exits" }
