@@ -25,6 +25,9 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
       //KhanhND: Try to get create txHash
       let tronDataApi = mainnet ? "https://apilist.tronscan.org/api/contract?contract=" : "https://api.shasta.tronscan.org/api/contract?contract="
       let contractInfo = await axios.get(tronDataApi + address);
+      console.log(JSON.stringify(contractInfo))
+      if(contractInfo.data.data==undefined)
+        return {result:false, error: "Can't get contract data"}
       if (contractInfo.data.data[0].creator == "")
         return { result: false, error: "Contract don't exits" }
       let creatorAddress= contractInfo.data.data[0].creator.address;
@@ -61,7 +64,6 @@ exports.verify = async function (mainnet, address, sourceCode, contractName, sol
     if (result.contracts) {
       let contract = result.contracts[address][contractName];
       let reCompileByteCode = contract.evm.bytecode.object;
-      console.log(reCompileByteCode);
       if (compareByteCode(reCompileByteCode, createByteCode.substr(0, reCompileByteCode.length))) {
         return { result: true, contractName: contractName }
       }
