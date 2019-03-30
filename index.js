@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors())
 
 app.get('/', (req, res) => res.send(`<h1>Backend of <a href="https://tronsmartcontract.space">https://tronsmartcontract.space</a>.</h1>
+<p>30/03/19: Add tron's family solidity compiler (tronbox, tronsol).<p>
 <p>02/03/19: Fix error return msg.<p>
 <p>25/02/19: Check signature for prevent none-author verify.<p>`))
 app.options('*', cors())
